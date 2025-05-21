@@ -25,13 +25,13 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    {{#if authenticated}}
+                    {{#if data.authenticated}}
                     <li class="nav-item">
-                        <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+                        <a href="/logout" class="btn btn-outline-light">Logout</a>
                     </li>
                     {{else}}
                     <li class="nav-item">
-                        <button class="btn btn-outline-light" onclick="showLoginModal()">Login</button>
+                        <a href="/login" class="btn btn-outline-light">Login</a>
                     </li>
                     {{/if}}
                 </ul>
@@ -43,82 +43,18 @@
         {{{body}}}
     </div>
 
-    <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Login</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="loginForm">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" required>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="login()">Login</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        let loginModal;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-        });
-
-        function showLoginModal() {
-            loginModal.show();
-        }
 
         async function login() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const response = await fetch('/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
-
-                const data = await response.json();
-                if (response.ok) {
-                    loginModal.hide();
-                    window.location.reload();
-                } else {
-                    alert(data.message);
-                }
-            } catch (error) {
-                alert('An error occurred during login');
-            }
+            location.href = '/login';
         }
 
         async function logout() {
-            try {
-                const response = await fetch('/logout', {
-                    method: 'POST'
-                });
-                if (response.ok) {
-                    window.location.reload();
-                }
-            } catch (error) {
-                alert('An error occurred during logout');
-            }
+            location.href = '/logout';
         }
     </script>
 </body>
