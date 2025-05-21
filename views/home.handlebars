@@ -1,0 +1,9 @@
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Express Auth Demo</h1>
+    <p class="lead">This is a simple demonstration of Express.js with authentication and protected routes.</p>
+    <hr class="my-4">
+    <p>Use the navigation bar to explore the public and secret pages.</p>
+    {{#unless authenticated}}
+    <p class="text-muted">Please log in to access the secret page.</p>
+    {{/unless}}
+</div>
